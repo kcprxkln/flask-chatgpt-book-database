@@ -14,10 +14,10 @@ categories = [
     "Behavioral Finance"
 ]
 
+openai.api_key = os.getenv("openai_apikey")
 
 class ChatgptInteraction():
     def __init__(self):
-        self.apikey = os.getenv("openai_apikey")
         self.model = "gpt-3.5-turbo"
 
     def is_book_financial(self, title):

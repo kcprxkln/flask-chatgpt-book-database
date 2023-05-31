@@ -17,8 +17,8 @@ def scrape_rating(title):
     rating_element = driver.find_element(By.CLASS_NAME, "minirating") 
     rating_text = rating_element.text  
     rating = float(rating_text.split()[0])
+    driver.get(WEBSITE_URL)
     return rating
 
-print(scrape_rating("rich dad poor dad"))
 
 
