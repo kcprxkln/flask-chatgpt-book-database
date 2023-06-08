@@ -81,3 +81,34 @@ body {
     color: #666;
     font-size: 18px;
 }
+
+.container-book-details {
+    text-align: center;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+  
+  .title-book-details {
+    font-size: 28px;
+    color: #333;
+    margin: 10px 0;
+  }
+  
+  .description-book-details {
+    font-size: 18px;
+    color: #555;
+    margin: 10px 0;
+  }
+  
+  .category-book-details {
+    font-size: 16px;
+    color: #777;
+    margin: 10px 0;
+  }
+
+  #additional-info {
+    font-size: 8px;
+    color: #555;
+}

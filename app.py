@@ -26,15 +26,16 @@ def bnf():
 
 @app.route('/book', methods=['GET'])
 def book_page():
-    book_name = request.args.get('book_name')
+    book_title = request.args.get('book_name')
+    show_book_title = book_title.title()
     #search for a book in db 
     # if exists, render the information 
     # else ask chat gpt if financial book
     try:
-        if chatgpt.is_book_financial(book_name):
-            category = chatgpt.book_category(book_name)
-            description = chatgpt.book_description(book_name)
-            rating = rating_scraping.scrape_rating(book_name)
+        if chatgpt.is_book_financial(book_title):
+            category = chatgpt.book_category(book_title)
+            description = chatgpt.book_description(book_title)
+            rating = rating_scraping.scrape_rating(book_title)
         else:
             return render_template('book_not_found.html') #notfinancialbook.html might not be a good name xd     
     
@@ -42,7 +43,7 @@ def book_page():
             return render_template('integration_problem.html')
         # yes - ask additional questions, scrape for rating
         # no - return that we couldn't find such financial related book
-    return render_template('book_page.html', book=book_name, rating=rating, category=category, description=description)
+    return render_template('book_page.html', book=show_book_title, rating=rating, category=category, description=description)
 
 
 

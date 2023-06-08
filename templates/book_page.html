@@ -2,10 +2,12 @@
 
 {% block main %}
 
-<h1> this is the page of:</h1>
-<h2> {{ book }} </h2>
-<p> {{ rating }} / 5 </p>
-<p> {{ description }} </p>
-<p> {{ category }} </p>
+  <div class="container-book-details">
+    <h1 class="title-book-details">{{ book }}</h1>
+    <p class="rating-book-details"> Rating: {{ rating }} / 5* </p>
+    <p class="description-book-details"> {{ description }} </p>
+    <p class="category-book-details">Category: {{ category }} </p>
+    <a id="additional-info"><em> *According to goodreads.com </em></a>
+</div>
 
 {% endblock %}
