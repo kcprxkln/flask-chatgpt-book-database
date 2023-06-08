@@ -36,32 +36,40 @@ def book_page():
     key = generate_book_key(book_title)
 
     # if exists, render the information 
-    
+    query = db.collection('financial-books').where("key", '==', key)
+    results = query.get()
 
-    # else ask chat gpt if financial book
-    try:
-        if chatgpt.is_book_financial(book_title):
-            category = chatgpt.book_category(book_title)
-            description = chatgpt.book_description(book_title)
-            rating = rating_scraping.scrape_rating(book_title)
-            title = generate_book_title(book_title)
-            book_object = {
-                 "key" : key, 
-                 "title" : title,
-                 "description" : description,
-                 "rating" : rating, 
-                 "category" : category
-            }
-            db.collection('financial-books').add(book_object)
-    #add new book to the db 
-        else:
-            return render_template('book_not_found.html') #notfinancialbook.html might not be a good name xd     
-    
-    except:
-            return render_template('integration_problem.html')
-        # yes - ask additional questions, scrape for rating
-        # no - return that we couldn't find such financial related book
-    return render_template('book_page.html', book=book_title, rating=rating, category=category, description=description)
+    if results:
+        for doc in results:
+            data = doc.to_dict()
+            rating = data['rating']
+            description = data['description']
+            category = data['category']
+            title = data['title']
+
+    else: # else ask chat gpt if financial book
+        try:
+            if chatgpt.is_book_financial(book_title):
+                category = chatgpt.book_category(book_title)
+                description = chatgpt.book_description(book_title)
+                rating = rating_scraping.scrape_rating(book_title)
+                title = generate_book_title(book_title)
+                book_object = {
+                    "key" : key, 
+                    "title" : title,
+                    "description" : description,
+                    "rating" : rating, 
+                    "category" : category
+                }
+                db.collection('financial-books').add(book_object)
+        #add new book to the db 
+            else:
+                return render_template('book_not_found.html') #notfinancialbook.html might not be a good name xd     
+        
+        except:
+                return render_template('integration_problem.html')
+
+    return render_template('book_page.html', book=title, rating=rating, category=category, description=description)
 
 
 
