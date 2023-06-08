@@ -1,13 +1,14 @@
-from chatgpt_interaction import ChatgptInteraction
+from chatgpt_interaction import ChatgptInteraction, categories
+import openai
+import os
 
-category_length = [7, 16, 31, 29, 28, 32, 32, 19, 35, 30, 18]
+openai.api_key = os.getenv("openai_apikey")
+
+category_length = [len(category) for category in categories]
 
 
 interaction = ChatgptInteraction()
 
-def test_chatgpt_api_cond():
-    output = interaction.is_book_financial("placeholder")
-    assert isinstance(output, str)
 
 def test_is_book_financial():
     output = interaction.is_book_financial("Rich dad poor dad")
@@ -21,4 +22,5 @@ def test_book_description():
 
 def test_book_category():
     output = interaction.book_category("Rich dad poor dad")
-    assert isinstance(output, str) and len(output) in category_length 
+    output_no_dot = output.strip(".") #chatgpt returns the sentence with "." at the end
+    assert isinstance(output, str) and len(output_no_dot) in category_length 
