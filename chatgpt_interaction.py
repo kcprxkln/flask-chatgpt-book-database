@@ -35,7 +35,7 @@ class ChatgptInteraction():
     def book_description(self, title):
         prompt = openai.ChatCompletion.create(
             model=self.model, 
-            messages=[{"role": "user", "content": f"provide me essence of book {title} in 10 sentences."}]
+            messages=[{"role": "user", "content": f"provide me essence of book {title} in 10 sentences. Format it just normal description, not a list of points."}]
         )
         description = prompt.choices[0].message.content 
 
@@ -47,9 +47,11 @@ class ChatgptInteraction():
             messages=[{"role": "user", "content": f"In which category would you place the \"{title}\" book?Personal Finance, Investing and Wealth Management, Business and Entrepreneurship, Economics and Finance Theory, Financial Education and Literacy, Personal Development and Success, Retirement Planning, Real Estate and Property Investment, Financial Technology (Fintech), Behavioral Finance. Answer only with name of category"}]
         )
         category =  prompt.choices[0].message.content
+        print(category)
 
-        if category in categories:
-            return category
+        for c in categories:
+            if c.lower() in category.lower():
+                return category
         
         else:
             return "unknown"

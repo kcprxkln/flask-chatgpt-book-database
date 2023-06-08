@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+<div class="error-container integration-problem">
+    <h1 class="error-heading integration-problem">Oops! There's a problem.</h1>
+    <p class="error-message integration-problem">Currently, there is some problem with the chat-gpt integration.<a href="{{ url_for('home') }}"> Please try again later. </a></p>
+</div>
+
+{% endblock %}

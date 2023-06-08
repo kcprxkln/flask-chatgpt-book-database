@@ -9,16 +9,20 @@ WEBSITE_URL = "https://www.goodreads.com/"
 driver = webdriver.Chrome()
 
 driver.get(WEBSITE_URL)
-
+ 
 def scrape_rating(title):
-    search_bar = driver.find_element(By.XPATH, '//*[@id="sitesearch_field"]')
-    search_bar.send_keys(title)
-    search_bar.send_keys(Keys.ENTER)
-    rating_element = driver.find_element(By.CLASS_NAME, "minirating") 
-    rating_text = rating_element.text  
-    rating = float(rating_text.split()[0])
-    driver.get(WEBSITE_URL)
-    return rating
+    try:
+        search_bar = driver.find_element(By.XPATH, '//*[@id="sitesearch_field"]')
+    except:
+        return "unknown"
+    else:   
+        search_bar.send_keys(title)
+        search_bar.send_keys(Keys.ENTER)
+        rating_element = driver.find_element(By.CLASS_NAME, "minirating") 
+        rating_text = rating_element.text  
+        rating = float(rating_text.split()[0])
+        driver.get(WEBSITE_URL)
+        return rating
 
 
 
