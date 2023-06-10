@@ -25,7 +25,8 @@ db = firestore.client()
 def home():
     return render_template('home.html')
 
-@app.route('/bnf') #enpoint to testing how book not found web frontend look like
+#enpoint to testing how book not found web frontend look like
+@app.route('/bnf') 
 def bnf():
     return render_template('book_not_found.html')
 
@@ -61,10 +62,9 @@ def book_page():
                     "rating" : rating, 
                     "category" : category
                 }
-                db.collection('financial-books').add(book_object)
-        #add new book to the db 
+                db.collection('financial-books').add(book_object)    # add new book to the db 
             else:
-                return render_template('book_not_found.html') #notfinancialbook.html might not be a good name xd     
+                return render_template('book_not_found.html')  
         
         except:
                 return render_template('integration_problem.html')
