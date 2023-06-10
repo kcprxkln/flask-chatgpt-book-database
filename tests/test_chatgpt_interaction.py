@@ -12,7 +12,7 @@ interaction = ChatgptInteraction()
 
 def test_is_book_financial():
     output = interaction.is_book_financial("Rich dad poor dad")
-    assert output == "yes"
+    assert output == True
 
 
 def test_book_description():
